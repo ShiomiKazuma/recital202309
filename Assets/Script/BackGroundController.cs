@@ -12,9 +12,12 @@ public class BackGroundController : MonoBehaviour
     SpriteRenderer _backgroundSpriteClone;
     /// <summary>背景座標の初期値</summary>
     float _initialPositionX;
-
+    /// <summary>ゲームマネージャ</summary>
+    GameManager _gameManager;
     void Start()
     {
+        //ゲームマネージャを取得
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _initialPositionX = _backgroundSprite.transform.position.x;   // 座標の初期値を保存しておく
 
         // 背景画像を複製して上に並べる
@@ -38,6 +41,8 @@ public class BackGroundController : MonoBehaviour
         if (_backgroundSpriteClone.transform.position.x < _initialPositionX - _backgroundSpriteClone.bounds.size.x)
         {
             _backgroundSpriteClone.transform.Translate(_backgroundSpriteClone.bounds.size.x * 2, 0f, 0f);
+            //日付変更処理
+            _gameManager.AddDate();
         }
     }
 }
